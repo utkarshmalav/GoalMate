@@ -12,6 +12,8 @@ export const colors = {
   money: '#2fd3b0',
   moneyDim: '#2fd3b022',
   danger: '#ff5c72',
+  doneRowBg: '#2fd3b024',
+  doneRowBorder: '#2fd3b0',
 
   // Habit-specific palette
   hBg: '#0c0c0e',
