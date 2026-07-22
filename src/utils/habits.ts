@@ -76,3 +76,49 @@ export function computeHabitStreaks(
 
   return { current, best };
 }
+
+export type HabitAnalysis = {
+  done: number;
+  missed: number;
+  unknown: number;
+  rate: number; // % done over the window
+  current: number;
+  best: number;
+  cells: { date: Date; status: HabitStatus }[]; // chronological, oldest first
+};
+
+export function computeTaskAnalysis(
+  entries: HabitEntries,
+  taskId: string,
+  windowDays: number,
+  streakLookbackDays: number,
+): HabitAnalysis {
+  const dayList = h_dayList(windowDays); // today first
+  let done = 0,
+    missed = 0,
+    unknown = 0;
+  const cells = dayList.map((d) => {
+    const key = fmtDate(d);
+    const status = getHabitStatus(entries, key, taskId);
+    if (status === "done") done++;
+    else if (status === "x") missed++;
+    else unknown++;
+    return { date: d, status };
+  });
+  const rate = windowDays > 0 ? Math.round((done / windowDays) * 100) : 0;
+  const { current, best } = computeHabitStreaks(
+    entries,
+    taskId,
+    streakLookbackDays,
+  );
+
+  return {
+    done,
+    missed,
+    unknown,
+    rate,
+    current,
+    best,
+    cells: [...cells].reverse(),
+  };
+}

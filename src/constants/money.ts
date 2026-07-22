@@ -1,0 +1,31 @@
+export const CATEGORIES = [
+  "Room Rent",
+  "Electricity Bill",
+  "Study Room",
+  "Gym",
+  "Mess",
+  "Petrol",
+  "Shopping",
+  "Travel",
+  "Entertainment",
+  "Health",
+  "Investment",
+  "RD",
+  "Other",
+];
+
+export const CATEGORY_COLORS: Record<string, string> = {
+  "Room Rent": "#ff7a45",
+  "Electricity Bill": "#f6c945",
+  "Study Room": "#7c6cf6",
+  Gym: "#2fd3b0",
+  Mess: "#ff5c9d",
+  Petrol: "#45b6ff",
+  Shopping: "#c65cff",
+  Travel: "#5c8fff",
+  Entertainment: "#5cff8f",
+  Health: "#ff4d4f",
+  Investment: "#00b894",
+  RD: "#0984e3",
+  Other: "#8b8ea3",
+};

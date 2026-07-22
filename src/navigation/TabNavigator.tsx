@@ -26,6 +26,7 @@ export default function TabNavigator() {
           backgroundColor: "rgba(16,18,26,0.95)",
           borderTopColor: colors.border,
           borderTopWidth: 1,
+          
         },
         tabBarIcon: ({ color, size }) => {
           const icons: Record<string, keyof typeof Ionicons.glyphMap> = {
