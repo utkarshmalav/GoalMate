@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   View,
   Text,
@@ -47,6 +48,7 @@ const DEFAULT_TASKS: HabitTask[] = [
 type ScreenMode = "grid" | "edit" | "analysis";
 
 export default function HabitsScreen() {
+  const insets = useSafeAreaInsets();
   const [tasks, setTasks] = useState<HabitTask[]>([]);
   const [entries, setEntries] = useState<HabitEntries>({});
   const [loaded, setLoaded] = useState(false);
@@ -232,8 +234,7 @@ export default function HabitsScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <View>
           <Text style={styles.eyebrow}>Habits</Text>
           <Text style={styles.headerTitle}>
@@ -241,7 +242,7 @@ export default function HabitsScreen() {
               "Analysis"
             : mode === "edit" ?
               "Edit Habits"
-            : "Habits"}
+            : "Daily Routine"}
           </Text>
         </View>
         <View style={styles.headerBtns}>
@@ -342,7 +343,7 @@ export default function HabitsScreen() {
                 color={colors.hTextFaint}
               />
               <Text style={styles.emptyText}>
-                No habits yet. Add one to see your analysis.
+                No 
               </Text>
             </View>
           : <>
@@ -606,7 +607,6 @@ const styles = StyleSheet.create({
   dim: { color: colors.hTextDim, textAlign: "center", marginTop: 20 },
 
   header: {
-    paddingTop: 22,
     paddingHorizontal: 20,
     paddingBottom: 14,
     borderBottomWidth: 1,
@@ -810,7 +810,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     marginTop: 14,
-    paddingTop: 12,
     borderTopWidth: 1,
     borderTopColor: colors.hBorder,
   },

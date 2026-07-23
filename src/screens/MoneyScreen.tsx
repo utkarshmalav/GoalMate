@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   View,
   Text,
@@ -25,6 +26,7 @@ import PieChart from "../components/PieChart";
 const EMPTY_DATA: MoneyData = { expenses: [] };
 
 export default function MoneyScreen() {
+  const insets = useSafeAreaInsets();
   const [data, setData] = useState<MoneyData>(EMPTY_DATA);
   const [loaded, setLoaded] = useState(false);
 
@@ -126,7 +128,7 @@ export default function MoneyScreen() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <Text style={styles.eyebrow}>Money</Text>
         <Text style={styles.headerTitle}>Track Spending</Text>
       </View>
@@ -367,7 +369,6 @@ const styles = StyleSheet.create({
   dim: { color: colors.textDim, textAlign: "center", marginTop: 20 },
 
   header: {
-    paddingTop: 22,
     paddingHorizontal: 20,
     paddingBottom: 14,
     borderBottomWidth: 1,

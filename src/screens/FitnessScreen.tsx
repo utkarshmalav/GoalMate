@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useCallback, useRef } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   View,
   Text,
@@ -42,6 +43,7 @@ const SET_COLORS = [colors.study, colors.fit, colors.money];
 type FitnessView = "plan" | "analysis";
 
 export default function FitnessScreen() {
+  const insets = useSafeAreaInsets();
   const [view, setView] = useState<FitnessView>("plan");
   const [data, setData] = useState<FitnessData>(EMPTY_DATA);
   const [loaded, setLoaded] = useState(false);
@@ -342,14 +344,19 @@ export default function FitnessScreen() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <View style={styles.header}>
+      <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <Text style={styles.eyebrow}>Fitness</Text>
         <TouchableOpacity onPress={goToTodaysPlan} activeOpacity={0.7}>
           <Text style={styles.headerTitle}>Today's Plan</Text>
         </TouchableOpacity>
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: insets.bottom + 40 },
+        ]}
+      >
         <View style={styles.subnav}>
           <TouchableOpacity
             style={[
@@ -804,7 +811,6 @@ const styles = StyleSheet.create({
   dim: { color: colors.textDim, textAlign: "center", marginTop: 20 },
 
   header: {
-    paddingTop: 22,
     paddingHorizontal: 20,
     paddingBottom: 14,
     borderBottomWidth: 1,
